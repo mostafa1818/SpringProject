@@ -1,0 +1,121 @@
+<script>
+    function toggleFormElements( ) {
+        let y = document.getElementById("myInput").value;
+        alert(y+"div clicked" );
+        return true;};
+
+    function loadfield() {
+        localStorage.clear();}
+
+    function statusvlidation(f  ) {
+        var selectstatus = document.getElementById("myInput").value;
+        if(selectstatus=="PROGRESS")
+        {
+            alert( "is not acceptable");
+            return false;
+        }else
+        {
+            alert("true");
+            return true;}
+        };
+</script>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload / Download</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/userPanel} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+
+</ul>
+
+<body onload="loadfield()"  >
+
+<div>
+ <div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>عنوان</th>
+            <th>توضیح</th>
+            <th> لینک نمایش</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="mainInvesment:${investment}"  action="#"
+            th:action="@{/adminInvesment/viewDetailsInvesment/{fileId}}" method="post" >
+            <td th:text="${mainInvesment.issue}" />
+            <td th:text="${mainInvesment.description}"/>
+
+            <td>
+                <div class="box">
+                    <a   th:href="@{'/api/investmentController/adminInvesment/editeInvesmentForUser/'+${mainInvesment.id}}" class="btn btn-white btn-animation-1">ویرایش</a>
+                </div>
+            </td>
+            <td>
+                <div class="box">
+                    <a   th:href="@{'/api/investmentController/adminInvesment/viewInvesmentForUser/'+${mainInvesment.id}}" class="btn btn-white btn-animation-1">نمایش</a>
+                </div>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h3>لیست فایلها</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>عنوان</th>
+            <th>توضیح</th>
+            <th>لینک نمایش</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mainInvesment:${reversInvestment}"  action="#"
+            th:action="@{/adminInvesment/viewDetailsInvesment/{fileId}}" method="post" >
+            <td th:text="${mainInvesment.issue}" />
+            <td th:text="${mainInvesment.description}"/>
+            <td>
+
+                <div class="box">
+                    <a   th:href="@{'/adminInvesment/viewInvesmentForUser/'+${mainInvesment.id}}"class="btn btn-white btn-animation-1">نمایش</a>
+                </div>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</div>
+</body>
+</html>

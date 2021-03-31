@@ -1,0 +1,91 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    function verifyPassword() {
+        var pw1 = document.getElementById('pwd1').value;
+        var pw2 = document.getElementById('pwd2').value;
+
+        if(pw1==pw2) {
+            return true;
+        } else {
+            alert("Password is NOT  CORRECT");
+            return false;
+        }
+    }
+</script>
+
+<!DOCTYPE html>
+<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Form-v10 by Colorlib</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/issueController/dashboardIssue} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+
+</ul>
+
+<div class="container">
+
+        <form  th:object="${mainIssue}"  action="#" th:action="@{/issueController/editeEssues}" method="post" >
+            <table>
+                <thead>
+                <tr>
+                    <th>
+                        <input th:field="*{subjectIssue}"     required    pattern="[a-zA-z0-9]{6,50}" type="text"   id="subjectIssue"  >
+                    </th>
+                    <th>
+                        <input  th:field="*{detailsIssue}"    required    pattern="[a-zA-z0-9]{6,50}" type="text" name="detailsIssue" id="detailsIssue"   >
+                    </th>
+                    <th>
+                        <input type="submit" name="register"  value="ثبت"  class="btn btn-white btn-animation-1"/>
+                    </th>
+                    <th>
+                        <input th:field="*{id}"  type="hidden"   id="idtIssue"  >
+                    </th>
+                </tr>
+                </thead>
+            </table>
+        </form>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

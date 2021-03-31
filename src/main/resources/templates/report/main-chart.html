@@ -1,0 +1,136 @@
+
+<script>
+    function cheakerror() {
+
+
+        // var emailerror = document.getElementById('emailerror').value;
+        var emailerror = document.cookie;
+
+        if(emailerror=="error=error") {
+            alert("fail connection");
+        }
+
+        $.removeCookie("error");
+    }
+</script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transparent Login Form with Blur Background</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+
+
+</head>
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/userPanel} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+</ul>
+<body onload="cheakerror()">
+
+
+<!--///////////////////////file//////////////////////-->
+
+
+
+<!--//////////////////////////////////////////////////////-->
+<div class="row">
+    <div class="container"  >
+        <table>
+
+            <thead>
+            <tr>
+                <th>
+                    <div>
+                        <h3>  فایل  </h3>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>شماره</th>
+                                <th>نام</th>
+                                <th>لینک دانلود</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="doc:*{docs}"   >
+                                <td th:text="${doc.Id}" />
+                                <td th:text="${doc.docName}"/>
+                                <td>
+                                    <div class="box">
+                                        <a   th:href="@{'/upload/downloadFile/'+${doc.id}}" class="btn btn-white btn-animation-1">دانلود</a>
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

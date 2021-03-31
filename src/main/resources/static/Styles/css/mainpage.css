@@ -1,0 +1,127 @@
+
+
+@import url('https://cdn.hipwallpaper.com/i/58/61/Qtwxch.jpg');
+
+html,body{
+    background-image: url('https://cdn.hipwallpaper.com/i/58/61/Qtwxch.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    direction: rtl;
+}
+
+.container{
+    height: 100%;
+    align-content: center;
+    direction: rtl;
+}
+
+.card{
+    direction: rtl;
+    height: 370px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
+.social_icon span{
+    direction: rtl;
+    font-size: 60px;
+    margin-left: 10px;
+    color:  rgba(2, 202, 252, 0.87);
+}
+
+.social_icon span:hover{
+    direction: rtl;
+    color: white;
+    cursor: pointer;
+}
+
+.card-header h3{
+    direction: rtl;
+    color: white;
+    direction: rtl;
+    text-align: right;
+}
+
+.social_icon{
+    direction: rtl;
+    position: absolute;
+    right: 20px;
+    top: -45px;
+}
+
+.input-group-prepend span{
+    direction: rtl;
+    width: 50px;
+    background-color: rgba(2, 202, 252, 0.87);
+    color: black;
+    border:0 !important;
+}
+
+
+.remember{
+    direction: rtl;
+    color: white;
+}
+
+.remember input
+{
+    direction: rtl;
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+    direction: rtl;
+}
+
+.login_btn{
+    color: black;
+    background-color: rgba(2, 202, 252, 0.87);
+    width: 100px;
+    direction: rtl;
+}
+
+.login_btn:hover{
+    direction: rtl;
+    color: black;
+    background-color: white;
+}
+
+.links{
+    direction: rtl;
+    color: white;
+}
+
+.links a{
+    direction: rtl;
+    margin-left: 4px;
+}
+#clickablebutton
+{
+    direction: rtl;
+    color: black;
+    background-color: rgba(2, 202, 252, 0.87);
+    text-decoration-color: #eeeeee;
+    direction: rtl;
+    text-align: right;
+}
+.buttonlogout
+{
+    background-color: #151515;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+ul li{display:inline-block; margin-right:15px; color: #ffffff
+}
+ul li:last-child{margin-right:0; padding-right:0; color: #bab7b7;
+    border-right:none;}

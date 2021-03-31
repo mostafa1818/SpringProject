@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>
+    function cheakerror() {
+
+
+         var emailerror = document.cookie;
+
+        if(emailerror=="error=error") {
+            alert("fail connection");
+        }
+
+        $.removeCookie("error");
+    }
+    function sendcookei() {
+        var startmonth = document.getElementById('startmonth').value;
+        var endmonth = document.getElementById('endmonth').value;
+        var startyear = document.getElementById('startyear').value;
+        var endyear = document.getElementById('endyear').value;
+        var startday = document.getElementById('startday').value;
+        var endday = document.getElementById('endday').value;
+
+
+
+        document.cookie = startday.toString()+startmonth.toString()+startyear.toString()+endday.toString()+ endmonth.toString()+endyear.toString();
+    alert("sendcookie"+document.cookie)
+
+    }
+
+    function checkForm( )
+    {
+        var startmonth = document.getElementById('startmonth').value;
+        var endmonth = document.getElementById('endmonth').value;
+        var startyear = document.getElementById('startyear').value;
+        var endyear = document.getElementById('endyear').value;
+        var startday = document.getElementById('startday').value;
+        var endday = document.getElementById('endday').value;
+
+
+        if(( startyear  < endyear )) {
+           return  true;
+        }else
+        if(( startmonth <endmonth )&&( startyear  ==endyear ))
+        {
+
+            return  true;
+        }else
+        if( ( startday  <endday )&&( startmonth <endmonth )&&( startyear  ==endyear ))
+        {
+
+            return  true;
+        }else    if( ( startday  ==endday )&&( startmonth  <endmonth )&&( startyear  ==endyear ))
+        {
+
+            return  true;
+        }else
+        {
+         return false;}
+    }
+
+    function chooseday() {
+        var month = document.getElementById('startmonth').value;
+
+        if(month>=7)
+        {
+            document.getElementById("startday").options[31].disabled = true;
+            op[30].disabled = true;
+        }
+    }
+    function choosedayevery4year() {
+
+        var year = document.getElementById('startyear').value;
+
+        if((year==1399)||(year==1403)||(year==1407)||(year==1411)||(year==1415)||(year==1419))
+        {
+            document.getElementById("startday").options[30].disabled = true;
+            op[30].disabled = true;
+        }}
+
+        function endchooseday() {
+            var month = document.getElementById('endmonth').value;
+
+            if(month>=7)
+            {
+                document.getElementById("endday").options[31].disabled = true;
+                op[30].disabled = true;
+            }
+        }
+        function endchoosedayevery4year() {
+
+            var year = document.getElementById('endyear').value;
+
+            if((year==1399)||(year==1403)||(year==1407)||(year==1411)||(year==1415)||(year==1419))
+            {
+                document.getElementById("endday").options[30].disabled = true;
+                op[30].disabled = true;
+            }
+
+    }
+</script>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transparent Login Form with Blur Background</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+
+</head>
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/userPanel} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+</ul>
+<body onload="cheakerror()">
+
+
+
+
+
+
+
+
+<!--/////////////////////////////////////////////////////////////////////-->
+<div class="row">
+    <div class="container"  >
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <table>
+                        <tr>
+
+                            <th>
+                                <form onSubmit="return checkForm( ); "
+
+                                      class="contact-form" method="post">
+                                     <label>از تاریخ</label>
+                                    <select name="day" id="startday"
+                                    >
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31" id="startday31">31</option>
+                                    </select><select name="month" id="startmonth" onclick="chooseday()"
+
+                                >
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                    <select name="year" id="startyear" onclick="choosedayevery4year()"
+
+                                    >
+                                        <option value="1420">1420</option>
+                                        <option value="1419">1419</option>
+                                        <option value="1418">1418</option>
+                                        <option value="1417">1417</option>
+                                        <option value="1416">1416</option>
+                                        <option value="1415">1415</option>
+                                        <option value="1414">1414</option>
+                                        <option value="1413">1413</option>
+                                        <option value="1412">1412</option>
+                                        <option value="1411">1411</option>
+                                        <option value="1410">1410</option>
+                                        <option value="1409">1409</option>
+                                        <option value="1408">1408</option>
+                                        <option value="1407">1407</option>
+                                        <option value="1406">1406</option>
+                                        <option value="1405">1405</option>
+                                        <option value="1404">1404</option>
+                                        <option value="1403">1403</option>
+                                        <option value="1402">1402</option>
+                                        <option value="1401">1401</option>
+                                        <option value="1400">1400</option>
+                                        <option value="1399">1399</option>
+                                        <option value="1398">1398</option>
+                                        <option value="1397">1397</option>
+                                        <option value="1396">1396</option>
+                                        <option value="1395">1395</option>
+                                    </select>
+
+                                    <!--    ///////////////////////////////-->
+                                    </br>
+                                    <label>تا تاریخ</label>
+                                    <select name="day" id="endday"
+                                    >
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31" id="endday31">31</option>
+                                    </select><select name="month" id="endmonth" onclick="endchooseday()"
+
+                                >
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                    <select name="year" id="endyear" onclick="endchoosedayevery4year()"
+
+                                    >
+                                        <option value="1420">1420</option>
+                                        <option value="1419">1419</option>
+                                        <option value="1418">1418</option>
+                                        <option value="1417">1417</option>
+                                        <option value="1416">1416</option>
+                                        <option value="1415">1415</option>
+                                        <option value="1414">1414</option>
+                                        <option value="1413">1413</option>
+                                        <option value="1412">1412</option>
+                                        <option value="1411">1411</option>
+                                        <option value="1410">1410</option>
+                                        <option value="1409">1409</option>
+                                        <option value="1408">1408</option>
+                                        <option value="1407">1407</option>
+                                        <option value="1406">1406</option>
+                                        <option value="1405">1405</option>
+                                        <option value="1404">1404</option>
+                                        <option value="1403">1403</option>
+                                        <option value="1402">1402</option>
+                                        <option value="1401">1401</option>
+                                        <option value="1400">1400</option>
+                                        <option value="1399">1399</option>
+                                        <option value="1398">1398</option>
+                                        <option value="1397">1397</option>
+                                        <option value="1396">1396</option>
+                                        <option value="1395">1395</option>
+                                    </select>
+
+
+                                    <button onclick="sendcookei()"   name="button1" type="submit" value="Search" >
+                                        کلیک
+                                    </button>
+
+
+
+                                </form>
+                            </th>
+                        </tr>
+                    </table>
+                </th>
+            </tr>
+            </thead>
+
+            <thead>
+            <tr>
+                <th>
+                    <div>
+                        <h3>  فایل  </h3>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>شماره</th>
+                                <th>نام</th>
+                                <th>لینک دانلود</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="doc:*{docs}"   >
+                                <td th:text="${doc.Id}" />
+                                <td th:text="${doc.docName}"/>
+                                <td>
+                                    <div class="box">
+                                        <a   th:href="@{'/upload/downloadFile/'+${doc.id}}" class="btn btn-white btn-animation-1">دانلود</a>
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+        </table>
+
+        <form
+                th:object="${tempClass}"
+                method="get"  >
+
+            <input th:field="*{temp}" type="hidden"
+                   id="formember"  name="formember" required>
+
+        </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

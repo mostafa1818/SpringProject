@@ -1,0 +1,197 @@
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+    function statusvlidation(f  ) {
+
+        var selectstatus = document.getElementById("selectstatus").value;
+
+       if(selectstatus=="PROGRESS")
+       {
+           alert( "is not acceptable");
+           return false;
+
+       }else
+       {
+           alert("true");
+           return true;}
+    }
+</script>
+
+
+<!DOCTYPE html>
+<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Form-v10 by Colorlib</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get"
+
+              th:action="@{'/api/investmentController/adminInvesment/listInvesment/'+${userName}}"
+              encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+</ul>
+
+<body class="form-v10">
+
+<div class="row">
+    <div class="container"  >
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <table>
+                        <tr>
+                            <th>
+
+
+        <form
+                onsubmit="return statusvlidation(this );"
+                class="form-detail" th:object="${investment}"
+                action="#" th:action="@{/api/investmentController/adminInvesment/changeStatusInvesment}" method="post" id="myform">
+
+                <input th:field="*{id}" type="hidden" name="id"
+                       id="id"  placeholder="id" required>
+
+                        <input th:field="*{issue}"        pattern="[a-zA-z0-9]{6,50}" type="text" name="issue" disabled
+                                id="issue"  placeholder="issue" required>
+
+            <textarea type="text" disabled
+                      th:field="*{description}"         pattern="[a-zA-z0-9]{6,50}" name="description" id="description" class="description" placeholder="description" required></textarea>
+
+            <textarea
+                    th:field="*{answer}"        pattern=" {6,400}" type="text" name="answer" class="answer" id="answer" placeholder="answer" required></textarea>
+
+                    <select
+                            onsubmit="return statusvlidation(this ) ;"
+                            id="selectstatus" th:field="*{requestStatus}">
+                        <option
+                                th:each="status : ${T(com.example.springproject.investment.RequestStatus).values()}"
+                                th:value="${status}" th:text="${status}"
+
+                        ></option>
+
+                    </select>
+
+
+            <button >ثبت پاسخ</button>
+        </form>
+        </th>
+        </tr>
+         </table>
+         </th>
+         </tr>
+         </thead>
+            <thead>
+            <tr>
+                <th>
+                    <div>
+                        <h3>بارگزاری فایل</h3>
+                        <form
+                                th:each="authority : ${#authentication.getAuthorities()}"
+                                th:if="${authority.getAuthority().startsWith('USER')}"
+
+                                onsubmit=" return Filevalidation( );"
+
+                                id="uploadFiles" name="uploadFiles" method="post" th:action=@{/upload/uploadFiles} encType="multipart/form-data">
+                            <input type="file" name="files" id="file"
+                                   onchange=" return Filevalidation( );"
+                                   accept="image/png, image/jpeg , .pdf , .doc , .docx" multiple required />
+
+                            <input type="hidden" name="typeofpage" id="typeofpage" th:value="uploadadd"
+                            />
+
+                            <button
+                                    onclick="savefield()"
+                                    type="submit">ثبت</button>
+                        </form>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <thead>
+            <tr>
+                <th>
+                    <div>
+                        <h3>لیست فایل</h3>
+                        <table
+
+                        >
+                            <thead>
+                            <tr>
+                                <th>شماره</th>
+                                <th>نام</th>
+                                <th>لینک دانلود</th>
+                                <th>پاک کردن</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="doc:*{docs}"   >
+                                <td th:text="${doc.Id}" />
+                                <td th:text="${doc.docName}"/>
+                                <td>
+                                    <div class="box">
+                                        <a   th:href="@{'/upload/downloadFile/'+${doc.id}}" class="btn btn-white btn-animation-1">دانلود</a>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <div class="box">
+                                        <a    th:href="@{/upload/deleteFile/{professorId}/deleteAdd (professorId=${doc.id}, classesId=${typeOfPage}) }" class="btn btn-white btn-animation-1">پاک کرد</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+        </table>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

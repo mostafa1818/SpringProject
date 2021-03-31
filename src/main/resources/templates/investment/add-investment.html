@@ -1,0 +1,209 @@
+<script>
+    window.ValidateInputs = function verifyPassword() {
+        document.getElementById("issue").value = document.getElementById("selectedoption").value;
+    }
+
+     function savefield() {
+         document.getElementById("issue").value = document.getElementById("selectedoption").value;
+         var description = document.getElementById('description').value;
+         var issue = document.getElementById('issue').value;
+         var selectedoption = document.getElementById('selectedoption').value;
+         localStorage.setItem('description',  description);
+         localStorage.setItem('issue',  issue);
+         localStorage.setItem('selectedoption',  selectedoption);
+         alert(localStorage.getItem('description'));
+    }
+    function loadfield() {
+
+       if( localStorage.getItem('description')==null)
+       {  document.getElementById('description').value=localStorage.getItem('description');}
+        if( localStorage.getItem('issue')==null) {
+            document.getElementById('issue').value = localStorage.getItem('issue');
+        }if( localStorage.getItem('selectedoption')==null) {
+            document.getElementById('selectedoption').value = localStorage.getItem('selectedoption');
+        }
+        }
+
+    function  Filevalidation (form) {
+
+        const temptotalsize= document.getElementById('formember').value
+        const fi = document.getElementById('file');
+
+        if (fi.files.length > 3) { alert("File must be less 3");
+            return false;}
+        if (fi.files.length ==1 )
+        {
+            const fsize = parseInt(fi.files.item(0).size);
+            const temp=parseInt(temptotalsize)+parseInt(fsize);
+
+            if (temp<10000000)
+            {return true;}
+            else
+            {return false;}
+        }
+        if (fi.files.length ==2 )
+        {
+            const fsize = parseInt(fi.files.item(0).size)+
+                parseInt(fi.files.item(1).size);
+            const temp=parseInt(temptotalsize)+parseInt(fsize);
+            if (temp<10000000)
+            {return true;}
+            else
+            {return false;}
+        }
+        if (fi.files.length ==3 )
+        {
+            const fsize = parseInt(fi.files.item(0).size)+
+                parseInt(fi.files.item(1).size)+
+                parseInt(fi.files.item(2).size);
+            const temp=parseInt(temptotalsize)+parseInt(fsize);
+            if (temp<10000000)
+            {return true;}
+            else
+            {return false;}
+        }
+        return false;
+    }
+
+</script>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>k</title>
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/userPanel} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+</ul>
+
+<body      onload="loadfield()"         >
+
+<div class="row">
+    <div class="container"  >
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <table>
+                        <tr>
+                            <th>
+
+                    <select id="selectedoption" class="chosen-select s150" th:field="*{map}"  onclick="verifyPassword()">
+                        <option value="1" th:each="opt : ${map.entrySet()}" th:value="${opt.key}" th:text="${opt.key}"></option>
+                    </select>
+                            </th>
+                            <th>
+                    <form    th:action=@{/api/investmentController/applyInvesment} method="post"   th:object="${applyingForInvestment}" >
+
+                        <textarea
+                                th:field="*{description}"
+                                type="text" id="description"
+                                pattern="[a-zA-z0-9]{6,4000}">
+
+                        </textarea>
+
+                        <input  th:field="*{issue}" type="hidden" id="issue"   />
+                        <button   name="register" onclick="verifyPassword()"   class="register"  >ثبت درخواست</button>
+                    </form>
+                            </th>
+                        </tr>
+                  </table>
+                </th>
+            </tr>
+            </thead>
+            <thead>
+            <tr>
+                <th>
+                    <div>
+                        <h3>Upload Multiple Files</h3>
+                        <form
+                                onsubmit=" return Filevalidation( );"
+                                id="uploadFiles" name="uploadFiles" method="post" th:action=@{/upload/uploadFiles} encType="multipart/form-data">
+                            <input type="file" name="files" id="file"
+                                   onchange=" return Filevalidation( );"
+                                   accept="image/png, image/jpeg , .pdf , .doc , .docx ,.xls" multiple required />
+                            <input type="hidden" name="typeOfPage" id="typeOfPage" th:value="uploadAdd"/>
+
+                            <button onclick="savefield()" type="submit">ثبت</button>
+
+                        </form>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <thead>
+            <tr>
+                <th>
+                    <div>
+                        <h3>لیست فایل ها</h3>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>شماره</th>
+                                <th>نام</th>
+                                <th>لینک دانلود</th>
+                                <th>پاک کردن</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="doc:*{docs}"   >
+                                <td th:text="${doc.Id}" />
+                                <td th:text="${doc.docName}"/>
+                                <td>
+                                    <div class="box">
+                                        <a   th:href="@{'/upload/downloadFile/'+${doc.id}}" class="btn btn-white btn-animation-1">دانلود</a>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div class="box">
+                                        <a    th:href="@{/upload/deleteFile/{professorId}/deleteAdd (professorId=${doc.id}, classesId=${typeOfPage}) }" class="btn btn-white btn-animation-1">پاک کرد</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+        </table>
+
+    <form
+        th:object="${tempClass}"
+        method="get"  >
+
+    <input th:field="*{temp}" type="hidden"
+           id="formember"  name="formember" required>
+
+</form>
+
+</div>
+</div>
+
+</body>
+</html>

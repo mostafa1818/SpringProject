@@ -1,0 +1,165 @@
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+     function verifyPassword() {
+
+        var pw1 = document.getElementById('pwd1').value;
+        var pw2 = document.getElementById('pwd2').value;
+
+        if(pw1==pw2) {
+            return true;
+        } else {
+            alert("Password is NOT  CORRECT");
+             return false;
+        }
+    }
+
+</script>
+
+<!DOCTYPE html>
+<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Form-v10 by Colorlib</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" type="text/css" href=" /Styles/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/userPanel} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+
+</ul>
+
+<body class="form-v10"  >
+<div class="page-content">
+    <div class="form-v10-content">
+
+            <form  onsubmit="return verifyPassword()"   class="form-detail"
+                   th:object="${user}"  action="#" th:action="@{/edite}" method="post" id="myform">
+            <div class="form-left">
+                <h2>اطلاعات عمومی</h2>
+                <span class="select-btn"><i class="zmdi zmdi-chevron-down"></i></span>
+
+                <div class="form-group">
+                    <div class="form-row form-row-1">
+                        <input
+
+                                pattern="[a-z]{2,50}"
+                                title="Username should only characters"
+                                th:field="*{firstName}" type="text" name="first_name"
+                                id="first_name" class="input-text" placeholder="نام" required>
+                    </div>
+                    <div class="form-row form-row-2">
+                        <input type="text"
+
+                               pattern="[a-z]{2,50}"
+                               title="Username should only characters"
+                               th:field="*{lastName}"  name="last_name" id="last_name" class="input-text" placeholder="نام خانوادگی" required>
+                    </div>
+                </div>
+
+                <span class="select-btn"><i class="zmdi zmdi-chevron-down"></i></span>
+
+                <div class="form-row">
+                    <input
+                            pattern="[0-9]{10}"
+                            title="Username should only contain 10 number"
+                            th:field="*{nationalCode}"  type="text" name="nationalCode" class="nationalCode" id="nationalCode" placeholder="کد ملی" required>
+                </div>
+                <div class="form-group">
+                    <div class="form-row form-row-3">
+                        <input
+                                pattern="[0-9]{11}"
+                                title="Username should only contain 10 number"
+                                th:field="*{phoneNumber}" type="text" name="phoneNumber" class="phoneNumber" id="phoneNumber" placeholder="شماره تلفن" required>
+                    </div>
+                    <span class="select-btn"><i class="zmdi zmdi-chevron-down"></i></span>
+                </div>
+            </div>
+            <div class="form-right">
+                <h2>اطلاعات کاربری</h2>
+                <div class="form-row">
+                    <input th:field="*{email}" disabled   required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" type="text" name="email" class="email" id="email" placeholder="کد پستی"  >
+                </div>
+                <div class="form-row">
+                    <!--  mohem-->
+                    <input th:field="*{username}"
+                           pattern="[a-zA-z0-9]{6,50}"
+                           title="Username should 6 characters or numbers"
+                           type="hidden" name="username" class="username" id="username" placeholder="نام کاربری"  >
+                </div>
+                <div class="form-group">
+                    <div class="form-row form-row-1">
+                        <input
+                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" disabled
+                                title="Username should UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
+                                th:field="*{password}" type="hidden" name="pwd1" id="pwd1"  class="رمز عبور" placeholder="password"required >
+                    </div>
+
+                    <span class="select-btn"><i class="zmdi zmdi-chevron-down"></i></span>
+
+                </div>
+
+                <span class="select-btn"><i class="zmdi zmdi-chevron-down"></i></span>
+
+                <div class="form-row">
+                    <input type="hidden" disabled
+                           pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                           title="Username should UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
+                           name="pwd2" id="pwd2" class="pwd2"  placeholder="pwd2" required >
+                </div>
+                <div class="form-checkbox">
+                    <label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
+                        <input type="checkbox" name="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="form-row-last">
+                    <input type="submit" name="register"    class="register" value="ثبت">
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

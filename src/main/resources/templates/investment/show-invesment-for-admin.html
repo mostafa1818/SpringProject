@@ -1,0 +1,144 @@
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+    function statusvlidation(f  ) {
+
+
+        var selectstatus = document.getElementById("selectstatus").value;
+
+        if(selectstatus=="PROGRESS")
+        {
+
+            alert( "is not acceptable");
+            return false;
+
+        }else
+        {
+            alert("true");
+            return true;}
+    }
+</script>
+
+<!DOCTYPE html>
+<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Form-v10 by Colorlib</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<ul class="nospace">
+
+    <li>
+        <form  name="uploadFiles" method="get"
+               th:action="@{'/api/investmentController/adminInvesment/listInvesment/'+${userName}}"
+               encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+
+</ul>
+
+<body class="form-v10">
+
+
+<div class="row">
+    <div class="container"  >
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <table>
+                        <tr>
+                            <th>
+
+        <form
+                onsubmit="return statusvlidation(this );"
+                class="form-detail" th:object="${investment}"
+                action="#"  method="get" id="myform">
+
+                <input th:field="*{id}" type="hidden" name="id"  disabled
+                       id="id"  placeholder="id" required>
+
+                        <input th:field="*{issue}"   pattern="[a-zA-z0-9]{6,50}"  type="text" name="issue"disabled
+                               id="issue"  placeholder="issue" required>
+
+            <textarea type="text" disabled
+                      th:field="*{description}"  name="description" id="description" class="description" placeholder="description" required></textarea>
+
+            <textarea disabled
+                            th:field="*{answer}"  type="text" name="answer" class="answer" id="answer" placeholder="answer" required></textarea>
+
+                    <select disabled
+                            onsubmit="return statusvlidation(this ) ;"
+                            id="selectstatus" th:field="*{requeststatus}">
+                        <option
+                                th:each="status : ${T(com.example.springproject.investment.Requeststatus).values()}"
+                                th:value="${status}" th:text="${status}"
+                        ></option>
+
+                    </select>
+        </form>
+
+         </th>
+         </tr>
+         </table>
+         </th>
+         </tr>
+         </thead>
+         </table>
+
+         <table>
+         <thead>
+         <tr>
+           <th>شماره</th>
+           <th>نام</th>
+           <th>لینک دانلود</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="doc:*{docs}"   >
+                <td th:text="${doc.Id}" />
+                <td th:text="${doc.docName}"/>
+                <td><a th:href="@{'/api/investmentController/downloadFile/'+${doc.id}}">Download</a></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

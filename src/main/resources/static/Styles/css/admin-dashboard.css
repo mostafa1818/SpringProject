@@ -1,0 +1,275 @@
+html,
+body {
+
+
+    margin:  0;
+    direction: rtl;
+    height: 100%;
+}
+
+body {
+
+
+direction: rtl;
+    margin: 0;
+
+    background: #ffffff;
+    background-image: url('https://cdn.hipwallpaper.com/i/54/29/mT0SJo.jpg');
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+.container {
+    direction: rtl;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+table {
+    border-radius: 25px;
+    width: 100%;
+    border-color: #2c7582;
+    /*border-collapse: collapse;*/
+    border:   #00c6ff;
+    direction: rtl;
+    width: 800px;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+th,
+td {
+    border: #00c6ff;
+    direction: rtl;
+    padding: 15px;
+    background-color: rgba(113, 238, 227, 0.66);
+    color: rgb(64, 68, 71);
+}
+
+th {
+    direction: rtl;
+    text-align: right;
+}
+
+
+.logoutform
+{
+    height: 50px;
+    position: relative;
+    direction: ltr;
+
+}
+
+#logoutb
+{
+    direction: ltr;
+
+    width: 5%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+/*//////////////////////////////*/
+.box{
+
+}
+
+.btn:link,
+.btn:visited{
+    text-decoration: none;
+    text-transform:uppercase;
+    position:relative;
+    top:0;
+    left:0;
+    padding:10px 20px;
+    border-radius:50px;
+    display:inline-block;
+    transition: all .5s;
+}
+
+.btn-white{
+    background:#fff;
+    color:#000;
+}
+
+.btn:hover{
+    box-shadow:0px 10px 10px rgba(0,0,0,0.2);
+    transform : translateY(-3px);
+}
+
+.btn:active{
+    box-shadow:0px 5px 10px rgba(0,0,0,0.2);
+    transform:translateY(-1px);
+}
+
+.btn-bottom-animation-1{
+    animation:comeFromBottom 1s ease-out .8s;
+}
+
+.btn::after{
+    content:"";
+    text-decoration: none;
+    text-transform:uppercase;
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    border-radius:100px;
+    display:inline-block;
+    z-index:-1;
+    transition: all .5s;
+}
+
+.btn-white::after {
+    background: #fff;
+}
+
+.btn-animation-1:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+@keyframes comeFromBottom{
+    0%{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+/*////////////////////////////////*/
+
+
+.containerpart2
+{
+    direction: rtl;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+
+#table-wrapper {
+    position:relative;
+}
+#table-scroll {
+    height:150px;
+    overflow:auto;
+    margin-top:20px;
+}
+#table-wrapper table {
+    width:100%;
+
+}
+#table-wrapper table * {
+    background:yellow;
+    color:black;
+}
+#table-wrapper table thead th .text {
+    position:absolute;
+    top:-20px;
+    z-index:2;
+    height:20px;
+    width:35%;
+    border:1px solid red;
+}
+/*/////////////////////////////*/
+#someTable
+{
+    display: inline-table;
+}
+#somebutton
+{
+    display: inline-block;
+    vertical-align: bottom;
+}
+/*//////////////////////////////////////////////*/
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+/*////////////////////////////////////////////*/
+input {
+    direction: rtl;
+    width: 100%;
+    padding: 11.5px 15px 15px 15px;
+    border: 1px solid transparent;
+    background: transparent;
+    appearance: unset;
+    -moz-appearance: unset;
+    -webkit-appearance: unset;
+    -o-appearance: unset;
+    -ms-appearance: unset;
+    outline: none;
+    -moz-outline: none;
+    -webkit-outline: none;
+    -o-outline: none;
+    -ms-outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+}
+
+.buttonlogout
+{
+    background-color: #151515;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+ul li{display:inline-block; margin-right:15px;
+    top: 1%;
+    left: 5%;
+
+    color: #ffffff
+}
+ul li:last-child{margin-right:0; padding-right:0;
+    color: #bab7b7;
+    border-right:none;}
+.buttonlogout
+{
+    background-color: #151515;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+ul li{display:inline-block; margin-right:15px; color: #ffffff
+}
+ul li:last-child{margin-right:0; padding-right:0; color: #bab7b7;
+    border-right:none;}

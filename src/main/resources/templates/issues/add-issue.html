@@ -1,0 +1,72 @@
+<script>
+    function checkdublicate( )
+    {      var subjectIssue = document.getElementById('subjectIssue').value;
+           if(  subjectIssue=='duplicate')
+        {   document.getElementById('subjectIssue').value="";
+            alert("subjectIssue is duplicate");
+        }
+    }
+</script>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>User Registration</title>
+</head>
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/userPanel} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+
+</ul>
+
+<body  onload="checkdublicate()">
+
+<div class="container">
+
+    <form action="#" th:action="@{/issueController/addIssue}" method="post" th:object="${issue}" >
+        <table>
+            <thead>
+            <tr>
+
+                <th>
+                    <input type="text" placeholder="عنوان" th:field="*{subjectIssue}" id="subjectIssue"   required pattern="[a-zA-z0-9]{6,50}"  /><br/>
+                </th>
+                <th>
+                    <input type="password" placeholder="توضیح"  th:field="*{detailsIssue}"    required    pattern="[a-zA-z0-9]{6,50}"     /><br/>
+                </th>
+                <th>
+
+                    <div class="box">
+                    <input type="submit" value="شبت"   class="btn btn-white btn-animation-1"/>
+                    </div>
+
+                </th>
+            </tr>
+            </thead>
+        </table>
+    </form>
+
+</div>
+
+</body>
+</html>

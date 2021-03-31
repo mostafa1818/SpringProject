@@ -1,0 +1,403 @@
+
+<script type="text/javascript">
+
+    function checkForm( )
+    {
+          document.getElementsByClassName("buttons").style.width=15%;
+    }
+</script>
+
+<!DOCTYPE html>
+<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
+       <title>Form-v10 by Colorlib</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" type="text/css" href=" /Styles/css/style.css">
+
+    <style>
+
+        html,
+        body {
+            background-image: url('https://cdn.hipwallpaper.com/i/19/63/t1WIvg.jpg');
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+             font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 400;
+        }
+
+        .buttons {
+            line-height: 0.5cm;
+            float: left;
+            width: 14%;
+            color: #00c6ff;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center;
+             
+            height: 25%;
+
+        }
+
+        h1 {
+            text-align: left;
+            color: #444;
+            letter-spacing: 0.05em;
+            margin: 0 0 0.4em;
+            font-size: 1em;
+        }
+
+        p {
+            text-align: left;
+            color: #444;
+            letter-spacing: 0.05em;
+            font-size: 0.8em;
+            margin: 0 0 2em;
+        }
+
+        .btn {
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 200px;
+            max-width: 300px;
+            position: relative;
+            text-decoration: none;
+            text-transform: uppercase;
+            width: 100%;
+        }
+        .btn:hover {
+            text-decoration: none;
+        }
+
+        /*btn_background*/
+        .effect01 {
+            line-height: 1cm;
+            color: rgba(255, 255, 255, 0.94);
+            background-color: rgba(0, 0, 0, 0.51);
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+        }
+        .effect01:hover {
+             background-color: rgba(255, 255, 255, 0.6);
+         }
+
+        .effect01 span {
+            transition: all 0.2s ease-out;
+            z-index: 2;
+        }
+        .effect01:hover span{
+            letter-spacing: 0.13em;
+            color: #333;
+        }
+
+        .effect01:after {
+            background: #FFF;
+            content: "";
+            height: 155px;
+            left: -75px;
+            opacity: .8;
+            position: absolute;
+            top: -50px;
+            -webkit-transform: rotate(35deg);
+            transform: rotate(35deg);
+            width: 50px;
+            transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+            z-index: 1;
+        }
+        .effect01:hover:after {
+            background: #FFF;
+             opacity: 0;
+            left: 120%;
+            -webkit-transform: rotate(40deg);
+            transform: rotate(40deg);
+        }
+
+        body {
+            margin: 0;
+        }
+
+        ul li{display:inline-block; margin-right:15px; color: #ffffff
+        }
+        ul li:last-child{margin-right:0; padding-right:0; color: #bab7b7
+            border-right:none;}
+
+        .header {
+            background-image: url("static/styles/images/1.jpg");
+            height: 400px;
+            text-align: center;
+            color: #00c6ff;
+
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            text-decoration: none;
+
+        }
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        @media screen and (max-width:600px) {
+            .column {
+                width: 100%;
+            }
+        }
+        .buttonlogout
+        {
+            background-color: #151515;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body       onload="checkForm();"    >
+
+<ul class="nospace">
+    <li><i   class="fa fa-phone" style="font-size:24px"      ></i> +00 (123) 456 7890</li>
+    <li><i  class="fa fa-envelope" style="font-size:24px" ></i> info@domain.com</li>
+    <li><i  class="fa fa-sign-ou" style="font-size:24px" ></i>
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  ><i class="fa fa-sign-out"></i></button>
+        </form>
+    </li>
+</ul>
+
+<div class="header" >
+    <h1>  </h1>
+</div>
+    <div class="row">
+
+        <!=========================================INVESMENT=========================================>
+        <!-------------------------------USER------------------------------->
+        <!---------------addinvesment--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('USER')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/api/investmentController/applyInvesment}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username" id="username" class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button   name="addinvesment"    class="btn effect01" target="_blank">ایجاد درخواست</button>
+                </div>
+        </form>
+        <!---------------SHOW AND EDITE INVESMENT for user--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('USER')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/showAndEditeInvesment}" method="get"  >
+                <input type="hidden"  th:field="*{username}"  name="username" id="username5" class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button    name="addinvesment"    class="btn effect01" target="_blank">ویرایش درخواست</button>
+                </div>
+        </form>
+        <!-------------------------------RESPONSIBLE------------------------------->
+        <!---------------SHOW AND ANSWERD INVESMENT--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith(  'RESPONSIBLE' )}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/api/investmentController/adminInvesment}" method="get"  >
+                <input type="hidden"  th:field="*{username}"  name="username"  class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button     name="addinvesment"     class="btn effect01" target="_blank">پاسخ و نمایش درخواست</button>
+                </div>
+        </form>
+        <!-------------------------------ADMIN------------------------------->
+        <!---------------SHOW AND EDITE INVESMENT--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith(  'ADMIN' )}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/api/investmentController/adminInvesment}" method="get"  >
+                <input type="hidden"  th:field="*{username}"  name="username"  class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button    name="addinvesment"      class="btn effect01" target="_blank">حذف و نمایش درخواست</button>
+                </div>
+        </form>
+        <!=========================================USERS=========================================>
+        <!-------------------------------USER------------------------------->
+        <!---------------editeUser--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('USER')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/edite}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username" class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button       name="addinvesment"       class="btn effect01" target="_blank">تغییر اطلاعات کاربری</button>
+                </div>
+        </form>
+        <!---------------editepassword--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('USER')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/editePassword}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username"  class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button     name="addinvesment"      class="btn effect01" target="_blank">تغییر رمز عبور</button>
+                </div>
+        </form>
+        <!---------------CHANGEEMAIL--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('USER')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/api/v3/changeEmail/editeEmailLogin}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username"  class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button     name="addinvesment"     class="btn effect01" target="_blank">تغییر پست الکترونیک</button>
+                </div>
+        </form>
+        <!-------------------------------RESPONSIBLE------------------------------->
+        <!---------------editeRESPONSIBLE--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('RESPONSIBLE')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/edite}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username"  class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button       name="addinvesment"       class="btn effect01" target="_blank"> ویرایش اطلاعات کاربر</button>
+                </div>
+        </form>
+        <!---------------editepasswordRESPONSIBLE--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('RESPONSIBLE')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/editePassword}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username"   class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button       name="addinvesment"       class="btn effect01" target="_blank">تغییر رمز عبور</button>
+                </div>
+        </form>
+        <!---------------CHANGEEMAILRESPONSIBLE--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('RESPONSIBLE')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/api/v3/changeEmail/editeEmailLogin}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username"   class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button       name="addinvesment"       class="btn effect01" target="_blank">تغییر پست الکترونیک</button>
+                </div>
+        </form>
+        <!-------------------------------ADMIN------------------------------->
+        <!---------------DASHBOARD--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('ADMIN')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/adminDashbord}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username"  class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button     name="addinvesment"     class="btn effect01" target="_blank">تغییر  اطلاعات کاربر</button>
+                </div>
+        </form>
+        <!=========================================ISSUE=========================================>
+        <!-------------------------------RESPONSIBLE------------------------------->
+        <!---------------ADD--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('RESPONSIBLE')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/issueController/dashboardIssue}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username"  class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button     name="addinvesment"     class="btn effect01" target="_blank">ویرایش عنوان درخواست</button>
+                </div>
+        </form>
+        <!---------------EDITE--------------->
+        <!---------------DELETE--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('RESPONSIBLE')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/issueController/addIssue}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username"  class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button       name="addinvesment"       class="btn effect01" target="_blank">   ایجاد عنوان درخواست</button>
+                </div>
+        </form>
+        <!-------------------------------ADMIN------------------------------->
+        <!---------------DELETE--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('ADMIN')}"
+                class="form-detail" onSubmit="return checkForm( );"   th:object="${user}"  action="#" th:action="@{/issueController/dashboardIssue}" method="get"  >
+                <input type="hidden" th:field="*{username}"  name="username"  class="username" placeholder="username " required>
+                <div class="buttons">
+                    <button      name="addinvesment"      class="btn effect01" target="_blank">پاک کردن عنوان درخواست</button>
+                </div>
+        </form>
+
+        <!=========================================REPORT=========================================>
+        <!-------------------------------RESPONSIBLE------------------------------->
+        <!---------------PDF--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('RESPONSIBLE')}"
+                class="form-detail"      action="#" th:action="@{/responsibleReport}" method="get"  >
+             <div class="buttons">
+                <button     name="addinvesment"     class="btn effect01" target="_blank">گزارش</button>
+            </div>
+        </form>
+
+        <!-------------------------------USER------------------------------->
+        <!---------------PDF--------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('USER')}"
+                class="form-detail"       action="#" th:action="@{/userReport}" method="get"  >
+             <div class="buttons">
+                <button     name="addinvesment"     class="btn effect01" target="_blank">گزارش</button>
+            </div>
+        </form>
+
+        <!-------------------------------ADMIN------------------------------->
+        <!---------------EXCEL--------------->
+
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('ADMIN')}"
+                class="form-detail"        action="#" th:action="@{/adminExcelReport}" method="get"  >
+
+            <div class="buttons">
+                <button      name="addinvesment"      class="btn effect01" target="_blank">گزارش </button>
+            </div>
+        </form>
+
+
+
+
+
+
+
+</div>
+</body>
+</html>

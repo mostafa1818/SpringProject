@@ -1,0 +1,109 @@
+
+<script>
+
+function enablediablse() {
+
+    if(document.getElementById('enableuser').value=true)
+        {
+            document.getElementById('enableuser').textContent="enable";
+        }
+    else
+        {
+            document.getElementById('enableuser').textContent="disable";
+        }
+}
+</script>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload / Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+
+</head>
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/userPanel} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+</ul>
+<body  >
+
+    <div class="container">
+        <table>
+            <thead>
+        <tr>
+            <th>نام کاربری</th>
+            <th>اصلاح</th>
+            <th>اصلاح رمز کاربری</th>
+            <th>پاک کردن</th>
+            <th>غیرفعال کردن</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="mainUser:${user}"  action="#"
+
+            th:action="@{/adminDashbord/edite/{fileId}}" method="post" >
+
+            <td th:text="${mainUser.username}" />
+
+            <td>
+                <div class="box">
+                <a   th:href="@{'/adminDashbord/edite/'+${mainUser.username}}" class="btn btn-white btn-animation-1">اصلاح</a>
+                </div>
+            </td>
+
+            <td>
+                 <div class="box">
+                 <a    th:href="@{'/editePassword/'+${mainUser.username}}" class="btn btn-white btn-animation-1">اصلاح رمز کاربری</a>
+                 </div>
+            </td>
+
+            <td>
+                <div class="box">
+                <a    th:href="@{'/adminDashbord/delete/'+${mainUser.username}}" class="btn btn-white btn-animation-1">پاک کردن</a>
+                </div>
+            </td>
+
+            <td>
+                <div class="box">
+                <a    th:text="${mainUser.enable} ? 'فعال' : 'غیرفعال'"  id="enableuser"  th:href="@{'/adminDashbord/disabled/'+${mainUser.username}}" class="btn btn-white btn-animation-1"> </a>
+                </div>
+            </td>
+
+
+            <td    >
+                <div class="box">
+                    <a id="username"     th:href="@{'/adminReport/'+${mainUser.username}}" class="btn btn-white btn-animation-1">گزارش</a>
+                </div>
+            </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+
+</html>

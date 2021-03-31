@@ -1,0 +1,207 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+
+    window.ValidateInputs = function verifyPassword() {
+
+        document.getElementById("issue").value = document.getElementById("selectedoption").value;
+
+    }
+
+    function addissue() {
+
+        document.getElementById("issue").value = document.getElementById("selectedoption").value;
+
+        alert(document.getElementById("issue").value)
+    }
+    function savefield() {
+
+        document.getElementById("issue").value = document.getElementById("selectedoption").value;
+
+        var description = document.getElementById('description').value;
+        var issue = document.getElementById('issue').value;
+        var selectedoption = document.getElementById('selectedoption').value;
+        var id = document.getElementById('id').value;
+        localStorage.setItem('description',  description);
+        localStorage.setItem('issue',  issue);
+        localStorage.setItem('selectedoption',  selectedoption);
+        localStorage.setItem('id',  id);
+
+     }
+    function loadfield() {
+        document.getElementById('selectedoption').value = document.getElementById('issue').value ;
+        if (
+            localStorage.getItem('id')!=null||
+            localStorage.getItem('description')!=null||
+            localStorage.getItem('issue')!=null||
+            localStorage.getItem('selectedoption')!=null
+        )
+        {
+         document.getElementById('description').value = localStorage.getItem('description');
+         document.getElementById('issue').value = localStorage.getItem('issue');
+         document.getElementById('selectedoption').value = localStorage.getItem('issue');
+         document.getElementById('id').value = localStorage.getItem('id');
+         }
+
+    }
+
+    function  Filevalidation (form) {
+
+        const temptotalsize= document.getElementById('formember').value
+        const fi = document.getElementById('file');
+
+        if (fi.files.length > 3) { alert("File must be less 3");
+        return false;}
+        if (fi.files.length ==1 )
+        {
+            const fsize = parseInt(fi.files.item(0).size);
+            const temp=parseInt(temptotalsize)+parseInt(fsize);
+             if (temp<1000000)
+            {return true;}
+            else
+            {return false;}
+        }
+        if (fi.files.length ==2 )
+        {
+            const fsize = parseInt(fi.files.item(0).size)+
+                          parseInt(fi.files.item(1).size);
+            const temp=parseInt(temptotalsize)+parseInt(fsize);
+            if (temp<1000000)
+            {return true;}
+            else
+            {return false;}
+         }
+        if (fi.files.length ==3 )
+        {
+            const fsize = parseInt(fi.files.item(0).size)+
+                          parseInt(fi.files.item(1).size)+
+                          parseInt(fi.files.item(2).size);
+            const temp=parseInt(temptotalsize)+parseInt(fsize);
+            if (temp<1000000)
+            {return true;}
+            else
+            {return false;}
+         }
+            return false;
+    }
+
+</script>
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Form-v10 by Colorlib</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+    <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" type="text/css" href=" /Styles/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<ul class="nospace">
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/showAndEditeInvesment} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+</ul>
+
+<body class="form-v10"    onload="loadfield()"  >
+<div class="page-content">
+    <div class="form-v10-content">
+
+        <form th:object="${tempClass}" method="get" >
+            <input th:field="*{temp}" type="hidden" id="formember"  name="formember" required>
+
+        </form>
+
+        <select id="selectedoption" class="chosen-select s150" th:field="*{map}"  onclick="verifyPassword()">
+            <option value="1" th:each="opt : ${map.entrySet()}" th:value="${opt.key}" th:text="${opt.key}"></option>
+        </select>
+
+        <form   onsubmit="return statusvlidation(this );"
+                class="form-detail" th:object="${investment}"
+                action="#" th:action="@{/api/investmentController/adminInvesment/editeInvesmentForUser}" method="post" id="myform">
+            <div class="form-left">
+
+                <span class="select-btn"><i class="zmdi zmdi-chevron-down"></i></span>
+
+                <input th:field="*{id}"  type="hidden" id="id"  placeholder="id" required>
+
+                <div class="form-group">
+                    <div class="form-row form-row-1">
+                        <input th:field="*{issue}" type="hidden" name="issue"   pattern="[a-zA-z0-9]{6,50}"
+                               id="issue"  placeholder="issue" required>
+                    </div>
+                    <div class="form-row form-row-2">
+                        <input type="text" pattern="[a-zA-z0-9]{6,4000}"
+                               th:field="*{description}"  name="description" id="description" class="description" placeholder="description" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="form-row-last">
+                            <button type="submit" name="register"  onclick="addissue()"  class="register"  >ثبت</button>
+                        </div>
+                    </div>
+            </div>
+        </form>
+
+        <table>
+            <thead>
+
+            <tr>
+            <div>
+                <h3>فیال های اپلود شده</h3>
+                <form
+                        onsubmit=" return Filevalidation( );"
+                        id="uploadFiles" name="uploadFiles" method="post" th:action=@{/upload/uploadFiles} encType="multipart/form-data">
+                    <input type="file" name="files" id="file"
+                           onchange=" return Filevalidation( );"
+                           accept="image/png, image/jpeg , .pdf , .doc , .docx" multiple required />
+                    <input type="hidden" name="typeOfPage" id="typeOfPage" th:value="uploadEdite"/>
+
+                    <button
+                            onclick="savefield()"
+                            type="submit">ذخیره فایل</button>
+                </form>
+            </div>
+            </tr>
+
+            <tr>
+                <th>شماره</th>
+                <th>نام</th>
+                <th>لینک دانلود</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="doc:*{docs}"   >
+                <td th:text="${doc.Id}" />
+                <td th:text="${doc.docName}"/>
+                <td><a th:href="@{'/upload/downloadFile/'+${doc.id}}">Download</a></td>
+                <td><a th:href="@{/upload/deleteFile/{professorId}/deleteEdite (professorId=${doc.id}, classesId=${typeOfPage}) }">delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
+
+
