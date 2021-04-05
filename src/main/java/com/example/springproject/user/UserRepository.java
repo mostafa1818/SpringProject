@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 @Repository
-@Transactional(readOnly = true)
+@Transactional( )
 public interface UserRepository extends JpaRepository<AppUser,Long> {
 
      Optional<AppUser> findByUserName(String userName) ;
@@ -141,5 +141,14 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
              "where  user.userName=?1 "
      )
      List<AppUser> findUserByUserName(String userName);
+
+
+     @Query("select user.email  from " +
+             "AppUser user " +
+             "where  user.roles=?1 "
+     )
+     List<String> findUserTypeCustomer(UserRole role );
+
+
 
 }
