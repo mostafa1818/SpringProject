@@ -6,9 +6,11 @@ import com.example.springproject.entity.AppUser;
 import com.example.springproject.emailvalidation.token.ConfirmationToken;
 import com.example.springproject.emailvalidation.token.ConfirmationTokenService;
 import com.example.springproject.emailvalidation.token.Token;
+import com.example.springproject.entity.UserRole;
 import com.example.springproject.investment.uploaddownloaddoc.Doc;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -194,6 +196,12 @@ public class UserService implements UserDetailsService {
                 .findFirst()
                 .get();
     }
+    public List<String> findUserTypeCustomer(UserRole typeUser )
+    {
+        return   userRepository.findUserTypeCustomer(typeUser);
+
+    }
+
 
     public int disableUserByUserName(String userName  )
     {
