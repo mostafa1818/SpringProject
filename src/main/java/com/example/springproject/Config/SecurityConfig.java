@@ -58,8 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(   "/api/v2/registration/**" ,"/register" )
                 .permitAll()
 
-
-
                 .antMatchers( HttpMethod.GET ,"/adminExcelReport"  )
                 .hasAuthority(UserRole.ROLE_ADMIN.toString())
                 .antMatchers(HttpMethod.GET ,"/responsibleReport/**" )
