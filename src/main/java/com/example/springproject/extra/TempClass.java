@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,11 +20,16 @@ import java.util.List;
 @NoArgsConstructor
 @Component
 public class TempClass {
+
+     List<String> emails  ;
+    File file=null ;
     String errorEmail="noterror";
     ConfirmationToken confirmationToken;
     String fileName;
     String userName;
     String email;
+    String mainText;
+
     Long temp;
     List<Long> tempFile=new ArrayList<>();
 
@@ -32,7 +40,13 @@ public class TempClass {
     }
     public void clearTempFiles( )
     {
+
         this.tempFile.clear();
     }
-
+    public void clearTempFiles2( )
+    {
+        this.tempFile=null ;
+    }
 }
+
+
