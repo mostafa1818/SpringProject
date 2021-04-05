@@ -126,7 +126,7 @@ public class SendAllEmailByFile implements Runnable {
         String message = "Test Email Message";
 
         final String username = "your email";
-        final String password = "your password";
+        final String password = "your pass";
 
 
         Properties props =createPropertise();
