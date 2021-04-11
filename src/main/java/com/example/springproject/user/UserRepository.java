@@ -14,10 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 @Repository
-@Transactional( )
+
 public interface UserRepository extends JpaRepository<AppUser,Long> {
 
-     Optional<AppUser> findByUserName(String userName) ;
+     Optional<AppUser> findByUsername(String username) ;
+
 
      List<AppUser> findAllBy();
      @Transactional
@@ -33,7 +34,7 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
      @Query("UPDATE AppUser user " +
              "SET user.password = ?2" +
 
-             " WHERE user.userName = ?1")
+             " WHERE user.username = ?1")
      int updatePasswordUser(String userName,String password  );
 
      @Transactional
@@ -41,18 +42,18 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
      @Query("UPDATE AppUser user " +
              "SET user.email = ?2" +
 
-             " WHERE user.userName = ?1")
+             " WHERE user.username = ?1")
      int updateEmailUser(String userName,String email  );
 
      @Transactional
      @Modifying
      @Query("UPDATE AppUser user " +
-             "SET user.password = ?2," +
-             " user.firstName = ?3" +
+             "SET user.firstName = ?2 " +
 
-             " WHERE user.userName = ?1")
+
+             " WHERE user.username = ?1")
      int editeUserPart1(
-             String userName  , String password ,String firstName );
+             String userName  ,String firstName );
 
      @Transactional
      @Modifying
@@ -62,7 +63,7 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
 
              "  user.email = ?3" +
 
-             " WHERE user.userName = ?1")
+             " WHERE user.username = ?1")
      int editeUserPart2(
              String userName   ,String lastName ,String email );
 
@@ -72,7 +73,7 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
              "SET user.phoneNumber = ?2," +
 
              "  user.nationalCode = ?3" +
-             " WHERE user.userName = ?1")
+             " WHERE user.username = ?1")
      int editeUserPart3(String userName  ,  String phoneNumber, String nationalcode);
 
      @Transactional
@@ -81,7 +82,7 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
              "SET user.roles = ?2" +
 
 
-             " WHERE user.userName = ?1")
+             " WHERE user.username = ?1")
      int editeUserPart4(String userName  ,  UserRole role );
 
      @Transactional
@@ -90,14 +91,14 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
              "SET user.numberProgressInvesment = ?2 " +
 
 
-             " WHERE user.userName = ?1")
+             " WHERE user.username = ?1")
      int editeNumberInvesment(String userName  ,Integer number);
 
      @Transactional
      @Modifying
      @Query("select user.id from " +
                      "AppUser user " +
-                     "where  user.userName=?1 "
+                     "where  user.username=?1 "
              )
      List<Long> findUserIdByUserName(String userName);
 
@@ -107,7 +108,7 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
      @Query("UPDATE AppUser user " +
              "SET user.enabled = false" +
 
-             " WHERE user.userName = ?1")
+             " WHERE user.username = ?1")
      int disableUserByUserName(String userName );
 
      @Transactional
@@ -115,7 +116,7 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
      @Query("UPDATE AppUser user " +
              "SET user.enabled = true" +
 
-             " WHERE user.userName = ?1")
+             " WHERE user.username = ?1")
      int enableUserByUserName(String userName );
 
      @Transactional
@@ -131,14 +132,14 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
      @Query("UPDATE AppUser user " +
              "SET user.locked = true" +
 
-             " WHERE user.userName = ?1")
+             " WHERE user.username = ?1")
      int deleteUserByUserName(String userName );
 
      @Transactional
      @Modifying
      @Query("select user  from " +
              "AppUser user " +
-             "where  user.userName=?1 "
+             "where  user.username=?1 "
      )
      List<AppUser> findUserByUserName(String userName);
 
