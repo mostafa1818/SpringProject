@@ -34,13 +34,17 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" name="username" id='username'  placeholder="نام کاربری"   th:field="*{username}"/>
+                <input type="text"
+                       pattern="[a-zA-z0-9]{6,50}"
+                       name="username" id='username'  placeholder="نام کاربری"   th:field="*{username}"/>
             </div>
             <div class="input-group form-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
-                <input type="password" name="password" id='password'  placeholder="رمز عبور" th:field="*{password}"/>
+                <input
+                        pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                        type="password" name="password" id='password'  placeholder="رمز عبور" th:field="*{password}"/>
             </div>
             <div class="row align-items-center remember">
                 <input type="checkbox">مرا به خاطر بیاور
