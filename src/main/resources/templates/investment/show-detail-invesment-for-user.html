@@ -2,7 +2,11 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+    window.ValidateInputs = function verifyPassword() {
 
+        document.getElementById("issue").value = document.getElementById("selectedoption").value;
+
+    }
     function statusvlidation(f  ) {
 
         var selectstatus = document.getElementById("selectstatus").value;
@@ -62,6 +66,10 @@
 <div class="page-content">
     <div class="form-v10-content">
 
+<!--        <select id="selectedoption" class="chosen-select s150" th:field="*{map}"  onclick="verifyPassword()">-->
+<!--            <option value="1" th:each="opt : ${map.entrySet()}" th:value="${opt.key}" th:text="${opt.key}"></option>-->
+<!--        </select>-->
+
         <form
                 onsubmit="return statusvlidation(this );"
                 class="form-detail" th:object="${investment}"
@@ -95,16 +103,18 @@
                 </div>
                 <div class="form-group">
 
-                    <select
-                            disabled
-                            onsubmit="return statusvlidation(this ) ;"
-                            id="selectstatus" th:field="*{requestStatus}">
+<!--                    <select-->
+<!--                            hidden-->
+<!--                            onsubmit="return statusvlidation(this ) ;"-->
+<!--                            id="selectstatus" th:field="*{requestStatus}">-->
+<!--                        <option-->
+<!--                                th:each="status : ${T(com.example.springproject.investment.Requeststatus).values()}"-->
+<!--                                th:value="${status}" th:text="${status}"-->
+<!--                        ></option>-->
+<!--                    </select>-->
 
-                        <option
-                                th:each="status : ${T(com.example.springproject.investment.Requeststatus).values()}"
-                                th:value="${status}" th:text="${status}"
-                        ></option>
-                    </select>
+
+
 
 
                     <div class="form-right">
