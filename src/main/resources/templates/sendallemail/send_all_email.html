@@ -1,0 +1,133 @@
+
+
+<script>
+    function choosetype() {
+        var selecttype = document.getElementById('typeemail').value;
+
+
+        // if(selecttype=="users")
+        // {
+        //     document.getElementById("files").value=null;
+        //
+        // }
+        // else if(selecttype=="responsibles")
+        // {
+        //     document.getElementById("files").value=null;
+        // }
+
+    }
+    function cheakfile() {
+        var cheakfile = document.getElementById('typeemail').value;
+        var valuefile= document.getElementById("files").value;
+
+        if((cheakfile=="wordfile" )&&(valuefile==""))
+        {
+             alert("فایل با پسوندdocیاdocxنتخاب کنید");
+         return false;
+        }
+
+        return true;
+    }
+
+    function cheaktype() {
+        var selecttype = document.getElementById('typeemail').value;
+
+
+
+        if(selecttype=="users")
+        {
+
+            document.getElementById("files").value=null;
+            alert("شما اجازه ندارید هم زمان فایل ایمیل انتخاب کنبد و به کاربران خودتان ایمیل بزنید")
+
+        }
+        else if(selecttype=="responsibles")
+        {
+            document.getElementById("files").value=null;
+            alert("شما اجازه ندارید هم زمان فایل ایمیل انتخاب کنبد و به کاربران خودتان ایمیل بزنید")
+        }
+
+    }
+</script>
+
+<!DOCTYPE html>
+
+<html lang="en"       xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/Styles/css/admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta charset="UTF-8">
+
+
+
+
+</head>
+<ul class="nospace">
+
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/userPanel} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-caret-square-o-left"></i>
+            </button>
+        </form>
+    </li>
+    <li>
+        <form name="uploadFiles" method="get" th:action=@{/logOut} encType="multipart/form-data">
+            <button type="submit"   class="buttonlogout"  >
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
+    </li>
+</ul>
+
+<body>
+
+<div class="row">
+    <div class="container"  >
+
+<table>
+
+    <thead>
+    <tr>
+        <th>
+            <div>
+                <h3>ارسال ایمیل انبوه</h3>
+                <form
+
+                        id="uploadFiles" name="uploadFiles" method="post" th:action=@{/sendAllMasssage/upload} encType="multipart/form-data">
+
+
+                    <select name="typeemail" id="typeemail" onsubmit="choosetype() "
+                    >
+                        <option value="wordfile">wordfile</option>
+                        <option value="users">users</option>
+                        <option value="responsibles">responsibles</option>
+
+                    </select>
+
+                    <label>لیست ایمیل </label>
+                    <input type="file" name="files" id="files" onchange="cheaktype()"
+                           accept="  .doc , .docx  "  />
+                    <label>فایل ضمیمه</label>
+                    <input type="file" name="attachfiles" id="attachfiles"/>
+                    <label>متن پیام</label>
+                    <textarea type="text" name="textFile" id="textFile" ></textarea>
+                    <input type="hidden" name="typeOfPage" id="typeOfPage" th:value="uploadAdd"/>
+
+                    <button   type="submit" onclick="return cheakfile()" >ثبت</button>
+
+                </form>
+            </div>
+        </th>
+    </tr>
+    </thead>
+
+</table>
+
+    </div>
+</div>
+</body>
+</html>
