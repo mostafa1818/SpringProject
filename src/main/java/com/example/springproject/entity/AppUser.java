@@ -25,7 +25,7 @@ public class AppUser implements UserDetails {
     // @NonNull
 //    @Column(unique = true)
     @Column
-    private String userName;
+    private String username;
 
    //  @NonNull
    // @Pattern(regexp = "^[a-zA-Z0-9.\\-\\/+=@_ ]*$")
@@ -81,7 +81,7 @@ public class AppUser implements UserDetails {
         this.password = password;
         this.email = email;
         this.roles = appUserRole;
-        this.userName=userName;
+        this.username=userName;
 
     }
     public AppUser(String email, UserRole appUserRole)
@@ -96,7 +96,7 @@ public class AppUser implements UserDetails {
         this.password = user.password;
         this.email = user.email;
         this.roles =user.roles;
-        this.userName=user.userName;
+        this.username=user.username;
         this.nationalCode=user.nationalCode;
         this.phoneNumber=user.phoneNumber;
     }
@@ -107,7 +107,7 @@ public class AppUser implements UserDetails {
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.roles=roles;
-        this.userName=user.getUserName();
+        this.username=user.getUserName();
         this.nationalCode=user.getNationalCode();
         this.phoneNumber=user.getPhoneNumber();
     }
@@ -131,22 +131,22 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return enabled;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return enabled;
     }
 
     @Override
