@@ -30,6 +30,7 @@ public class UserService implements UserDetailsService {
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";;
     private  final BCryptPasswordEncoder bCryptPasswordEncoder;
     private   ConfirmationTokenService confirmationTokenService;
+    @Autowired
     private final  UserRepository userRepository;
 
     public  AppUser loadUserByEmail(String email) throws UsernameNotFoundException
@@ -46,7 +47,7 @@ public class UserService implements UserDetailsService {
     public void saveUser(AppUser user)
         {
             AppUser user1=new AppUser();
-            user1.setUserName(user.getUsername());
+            user1.setUsername(user.getUsername());
             user1.setPassword(user.getPassword());
             user1.setEmail(user.getEmail());
             user1.setFirstName(user.getFirstName());
@@ -59,7 +60,7 @@ public class UserService implements UserDetailsService {
     @Override
     public AppUser loadUserByUsername(String userName) throws UsernameNotFoundException
         {
-            AppUser user= userRepository.findByUserName(userName).stream()
+            AppUser user= userRepository.findByUsername(userName).stream()
                 .findFirst()
                 .get();
             return user;
@@ -70,7 +71,7 @@ public class UserService implements UserDetailsService {
 
 
          boolean userExists = userRepository
-                .findByUserName(user.getEmail())
+                .findByUsername(user.getEmail())
                 .isPresent();
         ////MOHEM
         userExists=false;
@@ -151,7 +152,7 @@ public class UserService implements UserDetailsService {
     public void editeUser(AppUser user)
         {
             userRepository.editeUserPart1(user.getUsername(),
-                                          user.getPassword(),
+
                                           user.getFirstName());
             userRepository.editeUserPart2(user.getUsername(),
                                           user.getLastName(),
@@ -161,6 +162,9 @@ public class UserService implements UserDetailsService {
                                           user.getNationalCode());
             userRepository.editeUserPart4(user.getUsername(),
                                           user.getRoles());
+
+
+            System.out.println("================bigchang"+user.getFirstName());
 
         }
 
