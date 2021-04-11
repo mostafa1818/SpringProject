@@ -54,7 +54,7 @@ public class IssueController {
         }
     }
 
-    @GetMapping("/deleteissue/{subjectIssue}")
+    @GetMapping("/deleteIssue/{subjectIssue}")
     public String deleteIssue(@PathVariable String subjectIssue)
     {
         MainIssue mainIssue= issueService.findIssue(subjectIssue);
@@ -63,12 +63,12 @@ public class IssueController {
     }
     String temp=null;
 
-    @GetMapping("/editeissue/{subjectIssue}")
+    @GetMapping("/editeIssue/{subjectIssue}")
     public String editeIssue(@PathVariable   String subjectIssue, Model model )
     {
         temp=subjectIssue;
         MainIssue mainIssue= issueService.findIssue(temp);
-        model.addAttribute("issueNew",mainIssue);
+        model.addAttribute("mainIssue",mainIssue);
         return editeIssueGet(model);
     }
 
@@ -79,8 +79,11 @@ public class IssueController {
     }
 
     @PostMapping("/editeIssues")
-    public String editeIssuePost( @ModelAttribute("issueNew") MainIssue mainIssue)
+    public String editeIssuePost( @ModelAttribute("mainIssue") MainIssue mainIssue)
     {
+        System.out.println("--------------------"+mainIssue.getSubjectIssue());
+        System.out.println("--------------------"+mainIssue.getDetailsIssue());
+
         issueService.editeIsuue(mainIssue );
         return "redirect:/userPanel";
     }
