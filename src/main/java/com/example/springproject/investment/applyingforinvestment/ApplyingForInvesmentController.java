@@ -11,14 +11,19 @@ import com.example.springproject.investment.uploaddownloaddoc.Doc;
 import com.example.springproject.investment.uploaddownloaddoc.DocStorageService;
  import com.example.springproject.investment.isuue.IssueService;
 import com.example.springproject.user.UserService;
+import com.example.springproject.voiceRecord.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "api/investmentController")
@@ -79,8 +84,23 @@ public class ApplyingForInvesmentController {
 
     @PostMapping (value = "/applyInvesment" )
     public String getInvestment( @ModelAttribute(value = "investment")
-                                             ApplyingForInvesment applyingforinvestment)
+                                 ApplyingForInvesment applyingforinvestment,
+                                 @ModelAttribute UploadedFile uploadedFile)
     {
+
+
+        System.out.println("===================yes");
+        MultipartFile multipartFile = uploadedFile.getMultipartFile();
+
+        String fileName = "m1.mp3";
+        File file = new File(  fileName);
+        try {
+            multipartFile.transferTo(file);
+         } catch (NullPointerException | IOException e) {
+         }
+
+
+         
         FindCurrentUser findCurrentUser=new FindCurrentUser();
         String userName= findCurrentUser.getSendUserName();
         /////////////////////duplicate//////////////
@@ -169,11 +189,28 @@ public class ApplyingForInvesmentController {
     @GetMapping("/adminInvesment/viewInvesmentForUser/{id}")
     public String viewInvesmentForUser (@PathVariable Long id, Model model)
     {
+        System.out.println("problem1=====================");
         List<Doc> docs = docStorageService.findDocByInvesmentId(id);
         model.addAttribute("docs", docs);
         ApplyingForInvesment investment=
                 applyingforinvestmentService.getInvestmentById(id);
+
+        List<MainIssue> mainIssues = issueService.findAllIssue();
+        String temp1=null;
+        String temp2=null;
+        Map <String,String> map=new HashMap<>();
+        for (MainIssue mainIssue:mainIssues)
+        {
+            temp1= mainIssue.getSubjectIssue();
+            temp2= mainIssue.getDetailsIssue();
+            if(( temp1!=null)  ) {
+                map.put(temp1,temp2);
+            }
+        }
+        model.addAttribute( "map",map);
         model.addAttribute("investment",investment);
+
+        System.out.println("problem2===================="+investment.getRequestStatus());
 
         return   "investment/show-detail-invesment-for-user";
     }
@@ -405,8 +442,10 @@ public class ApplyingForInvesmentController {
         Long userId=userService.findUserIdByUserName(userName);
 
         List<Doc> docs = docStorageService.findDocByUserIdAndInvesment(userId,id);
-        docs.stream().forEach(s-> System.out.println(s+"               s"));
-        model.addAttribute("docs", docs);
+        docs.stream().forEach(s-> System.out.println(s+"------------------s"));
+
+        List<Doc> docs2=docs.stream().filter(doc -> !doc.getDocType().equals("mp3")).collect(Collectors.toList());
+        model.addAttribute("docs", docs2 );
         ApplyingForInvesment investment=
                 applyingforinvestmentService.getInvestmentById(id);
         model.addAttribute("userName",userName);
