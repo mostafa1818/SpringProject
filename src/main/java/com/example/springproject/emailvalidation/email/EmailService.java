@@ -65,6 +65,7 @@ public class EmailService implements EmailSender
                      try{
                          mailSender.send(mimeMessage);}catch (MailSendException e)
                      {
+                         System.out.println(e);
                          tempClass.setErrorEmail("error");
                      }
                      System.out.println("send");
@@ -84,6 +85,7 @@ public class EmailService implements EmailSender
                       try{
                         mailSender.send(mimeMessage);}catch (MailSendException e)
                       {
+                          System.out.println(e);
                           tempClass.setErrorEmail("error");
                       }
                         System.out.println("send");
