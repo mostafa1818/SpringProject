@@ -17,7 +17,7 @@ public interface IssueRepository extends JpaRepository<MainIssue,Long> {
   @Modifying
   @Query("UPDATE MainIssue issue " +
          "SET issue.detailsIssue = ?3 ," +
-          "issue.detailsIssue = ?2"+
+          "issue.subjectIssue = ?2"+
          " WHERE issue.id= ?1")
   int updateIssueUser(Long id,String subjectIssue,String detailsIssue  );
 }
