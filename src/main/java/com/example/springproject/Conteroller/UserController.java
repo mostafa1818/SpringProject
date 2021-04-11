@@ -74,7 +74,7 @@ public class UserController {
             if(userNameValidFlage==true || emailValidFlage==true ) {
 
                 if(userNameValidFlage==true)
-                {     user.setUserName("duplicate"); }
+                {     user.setUsername("duplicate"); }
                 if(emailValidFlage==true)
                 {   user.setEmail("duplicate");      }
 
@@ -87,6 +87,11 @@ public class UserController {
             }else
             {
                 RegistrationRequest registrationRequest = new RegistrationRequest(user);
+                System.out.println(user.getUsername());
+
+                System.out.println(registrationRequest.getUserName());
+                System.out.println(registrationRequest.getFirstName());
+
                 registrationRequest.setPassword(passwordEncoder.encode(  user.getPassword()));
                 String result=  registerationService.register(  registrationRequest, Token.REGISTER);
 
@@ -131,10 +136,10 @@ public class UserController {
         FindCurrentUser findCurrentUser=new FindCurrentUser();
         String userName= findCurrentUser.getSendUserName();
         /////////////////duplicate////////////////////
-            user.setUserName(userName);
+            user.setUsername(userName);
             user.setPassword(passwordEncoder.encode(   user.getPassword()));
             userService.editeUser(user);
-            return "redirect:/userpanel";
+            return "redirect:/userPanel";
         }
 
     @GetMapping("/edite")
@@ -153,7 +158,7 @@ public class UserController {
     public String editePasswordForm(@ModelAttribute("user") AppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.editePassUser(user);
-        return "redirect:/userpanel";
+        return "redirect:/userPanel";
     }
 
 
@@ -247,7 +252,13 @@ public class UserController {
     @PostMapping("/dashboardEditeUser")
     public String editeUserPost( @ModelAttribute("appUser") AppUser appUser)
     {
+        System.out.println("======= "+appUser.getFirstName());
+        System.out.println("======= "+appUser.getRoles());
+        System.out.println("======= "+appUser.getPassword());
+
         userService.editeUser(appUser );
+
+        System.out.println("=======================bigproblem==================");
         return "redirect:/adminDashbord";
     }
 
