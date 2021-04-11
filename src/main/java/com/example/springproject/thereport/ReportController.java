@@ -104,11 +104,11 @@ public class ReportController {
     }
     @GetMapping("/userReport")
     public String userReportGet(  HttpServletResponse response ) {
-
+        System.out.println("USER report      ------------------------");
         Cookie cookie=new Cookie("error", tempClass.getErrorEmail());
         response.addCookie(cookie);
 
-        System.out.println("USER       ------------------------");
+
         tempClass.setErrorEmail("noterror");
         return "report/main-report";
     }
@@ -143,11 +143,17 @@ public class ReportController {
         LocalDate localDateEnd=input.get(1);
 
         List<ApplyingForInvesment> invesmentList= invesmentService.findInvesmentByDateForResponsible(mainUserName,localDateStart,localDateEnd);
+        System.out.println("ApplyingForInvesment       ================");
+
+        invesmentList.stream().forEach(s-> System.out.println(s.getUserName()));
         Doc doc= createPdf(invesmentList,userName,"usual" );
+        System.out.println("doc-----------"+doc.getDocType());
         if (tempClass.getErrorEmail().equals("error"))
         {
+            System.out.println("error       ================");
             return "redirect:/responsibleReport";
         }
+
         model.addAttribute("docs",doc);
         invesmentList.stream().forEach(s-> System.out.println(s.getDescription()));
 
@@ -172,17 +178,20 @@ public class ReportController {
 
     }
 
-    @GetMapping("/adminReport/{userName}")
-    public String adminReportGet( @PathVariable String userName,Model model ) {
+    @GetMapping("/adminReport/{username}")
+    public String adminReportGet( @PathVariable String username,Model model ) {
+
 
          GiveDate giveDate=new GiveDate();
 
-        tempClass.setUserName(userName);
-        System.out.println("userName-----------"+userName);
+        tempClass.setUserName(username);
+        System.out.println("---------================================--") ;
+
+        System.out.println("userName-----------"+username);
         model.addAttribute("giveDate",giveDate);
 
 
-        AppUser user=userService.findUserByUserName(userName);
+        AppUser user=userService.findUserByUserName(username);
         System.out.println("user.getRoles()-----------"+user.getRoles());
         if(user.getRoles().equals(UserRole.ROLE_RESPONSIBLE))
         {
@@ -232,22 +241,23 @@ public class ReportController {
 
 
         List<String> invesments2=invesmentService.findAllUserNameOfResponsibleInvesment();
+          if(!invesments2.isEmpty()) {
+              Set<String> distinct2 = new HashSet<>(invesments2);
+              Map<String, Integer> outPut2 = new HashMap<>();
+              for (String s : distinct2) {
+                  outPut2.put(s, Collections.frequency(invesments2, s));
+              }
 
-         Set<String> distinct2 = new HashSet<>(invesments2);
-        Map<String,Integer> outPut2=new HashMap<>();
-        for (String s: distinct2) {
-            outPut2.put(s,Collections.frequency(invesments2, s));
-         }
+              for (String name : outPut2.keySet()) {
+                  String key = name.toString();
+                  String value = outPut2.get(name).toString();
+                  System.out.println(key + " " + value);
+              }
+              Doc doc = createExel(outPut2);
 
-                for (String name: outPut2.keySet()) {
-            String key = name.toString();
-            String value = outPut2.get(name).toString();
-            System.out.println(key + " " + value);
-        }
-        Doc doc = createExel(outPut2);
+              model.addAttribute("docs", doc);
 
-        model.addAttribute("docs",doc);
-
+          }
         return "report/main-chart";
 
     }
@@ -303,7 +313,8 @@ public class ReportController {
             data.setVaryColors(true);
             data.addSeries(testOutcomes, values);
 
-            chart.plot(data);
+            try{chart.plot(data);}catch (NullPointerException e){}
+
 
             try (FileOutputStream outputStream = new FileOutputStream(fileName)) {
                 workbook.write(outputStream);
@@ -421,7 +432,10 @@ public class ReportController {
         String tempUserName= findCurrentUser.getSendUserName();
         AppUser user= userService.findUserByUserName(tempUserName);
 
-        emailSender.send(user.getEmail(),"pdf");
+
+            emailSender.send(user.getEmail(),"pdf");
+
+
 
 
        File file2=new File(file);
