@@ -391,8 +391,17 @@
                 <button      name="addinvesment"      class="btn effect01" target="_blank">گزارش </button>
             </div>
         </form>
+        <!=========================================LOCALEMAIL=========================================>
+        <!-------------------------------ADMIN------------------------------->
+        <form
+                th:each="authority : ${#authentication.getAuthorities()}"
+                th:if="${authority.getAuthority().startsWith('ADMIN')}"
+                class="form-detail"        action="#" th:action="@{/sendAllMasssage/upload}" method="get"  >
 
-
+            <div class="buttons">
+                <button      name="addinvesment"      class="btn effect01" target="_blank">ایمیل انبوه </button>
+            </div>
+        </form>
 
 
 
