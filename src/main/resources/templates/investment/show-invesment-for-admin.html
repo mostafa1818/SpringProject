@@ -91,15 +91,15 @@
             <textarea disabled
                             th:field="*{answer}"  type="text" name="answer" class="answer" id="answer" placeholder="answer" required></textarea>
 
-                    <select disabled
-                            onsubmit="return statusvlidation(this ) ;"
-                            id="selectstatus" th:field="*{requeststatus}">
-                        <option
-                                th:each="status : ${T(com.example.springproject.investment.Requeststatus).values()}"
-                                th:value="${status}" th:text="${status}"
-                        ></option>
+<!--                    <select disabled-->
+<!--                            onsubmit="return statusvlidation(this ) ;"-->
+<!--                            id="selectstatus" th:field="*{requestStatus}">-->
+<!--                        <option-->
+<!--                                th:each="status : ${T(com.example.springproject.investment.Requeststatus).values()}"-->
+<!--                                th:value="${status}" th:text="${status}"-->
+<!--                        ></option>-->
 
-                    </select>
+<!--                    </select>-->
         </form>
 
          </th>
