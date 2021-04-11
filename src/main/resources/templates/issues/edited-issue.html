@@ -53,15 +53,15 @@
 
 <div class="container">
 
-        <form  th:object="${mainIssue}"  action="#" th:action="@{/issueController/editeEssues}" method="post" >
+        <form  th:object="${mainIssue}"  action="#" th:action="@{/issueController/editeIssues}" method="post" >
             <table>
                 <thead>
                 <tr>
                     <th>
-                        <input th:field="*{subjectIssue}"     required    pattern="[a-zA-z0-9]{6,50}" type="text"   id="subjectIssue"  >
+                        <input th:field="*{subjectIssue}"     required     type="text"   id="subjectIssue"  >
                     </th>
                     <th>
-                        <input  th:field="*{detailsIssue}"    required    pattern="[a-zA-z0-9]{6,50}" type="text" name="detailsIssue" id="detailsIssue"   >
+                        <input  th:field="*{detailsIssue}"    required    p  type="text" name="detailsIssue" id="detailsIssue"   >
                     </th>
                     <th>
                         <input type="submit" name="register"  value="ثبت"  class="btn btn-white btn-animation-1"/>
