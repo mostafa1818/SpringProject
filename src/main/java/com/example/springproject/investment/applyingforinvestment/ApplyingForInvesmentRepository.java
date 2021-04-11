@@ -24,14 +24,7 @@ public interface ApplyingForInvesmentRepository extends
                     "and invesment.requestStatus=?2 )"
     ) List<ApplyingForInvesment> findByUserName(String username, RequestStatus status);
 
-    @Transactional
-    @Modifying
-    @Query
-    ("select invesment from " +
-                    "ApplyingForInvesment invesment  " +
-                    "where ( invesment.userName=?1 " +
-                    "and invesment.requestStatus != ?2 )"
-    ) List<ApplyingForInvesment> findByUserNameReverse(String username, RequestStatus status);
+
 
     @Transactional
     @Modifying
@@ -86,7 +79,7 @@ public interface ApplyingForInvesmentRepository extends
     @Query
             ("select invesment  from " +
                     "ApplyingForInvesment invesment " +
-                    "where  invesment.addDate >= ?2 and  invesment.addDate <=?3 and invesment.rsponsibleUser.userName=?1 "
+                    "where  invesment.addDate >= ?2 and  invesment.addDate <=?3 and invesment.rsponsibleUser.username=?1 "
             )
     List<ApplyingForInvesment> findInvesmentByDateForResponsible(String userName,LocalDate  startLocalDate ,LocalDate  endLocalDate );
 
@@ -101,5 +94,11 @@ public interface ApplyingForInvesmentRepository extends
             "WHERE invesment.id=?1")
     int updateInvesmentResponseDate(Long InvesmentId, LocalDate localDate   );
 
+    @Query
+            ("select invesment2 from " +
+                    "ApplyingForInvesment invesment2  " +
+                    "where  invesment2.userName=?1 " +
+                    "and invesment2.requestStatus <> ?2 "
+            ) List<ApplyingForInvesment> findByUserNameReverse(String userName, RequestStatus status);
 
 }
