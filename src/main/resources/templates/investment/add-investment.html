@@ -1,6 +1,10 @@
 <script>
-    window.ValidateInputs = function verifyPassword() {
+      function verifyPassword() {
         document.getElementById("issue").value = document.getElementById("selectedoption").value;
+        alert("t");
+        alert(temp2);
+        startUpload();
+
     }
 
      function savefield() {
@@ -65,6 +69,148 @@
         return false;
     }
 
+    let temp2;
+    let temp3;
+    let dataArray = [];
+    let audioIN = { audio: true };
+
+    navigator.mediaDevices.getUserMedia(audioIN)
+
+
+        .then(function (mediaStreamObj) {
+
+            let audio = document.querySelector('audio');
+            if ("srcObject" in audio) {
+                audio.srcObject = mediaStreamObj;
+            }
+            else {   // Old version
+                audio.src = window.URL
+                    .createObjectURL(mediaStreamObj);
+            }
+
+            audio.onloadedmetadata = function (ev) {
+
+                audio.play();
+            };
+
+            let start = document.getElementById('btnStart');
+            let stop = document.getElementById('btnStop');
+            let playAudio = document.getElementById('audioPlay');
+            let mediaRecorder = new MediaRecorder(mediaStreamObj);
+
+            start.addEventListener('click', function (ev) {
+                mediaRecorder.start(ev);
+            })
+
+            stop.addEventListener('click', function (ev) {
+                mediaRecorder.stop(ev);
+            });
+
+            mediaRecorder.ondataavailable = function (ev) {
+                dataArray.push(ev.data);
+                temp2=dataArray;
+            }
+
+            mediaRecorder.onstop = function (ev) {
+
+                let audioData = new Blob(dataArray,
+                    { 'type': 'audio/mp3;' });
+                dataArray = [];
+
+                let audioSrc = window.URL
+                    .createObjectURL(audioData);
+                playAudio.src = audioSrc;
+                temp3=playAudio.src ;
+            }
+        })
+        .catch(function (err) {
+            console.log(err.name, err.message);
+        });
+
+    var totalFileLength, totalUploaded, fileCount, filesUploaded;
+
+     function debug(s) {
+        var debug = document.getElementById('debug');
+        if (debug) {
+            debug.innerHTML = debug.innerHTML + '<br/>' + s;
+        }
+    }
+
+     function onUploadComplete(e) {
+        totalUploaded += document.getElementById('files').files[filesUploaded].size;
+        filesUploaded++;
+        debug('complete ' + filesUploaded + " of " + fileCount);
+        debug('totalUploaded: ' + totalUploaded);
+        if (filesUploaded < fileCount) {
+            uploadNext();
+        } else {
+            var bar = document.getElementById('bar');
+            bar.style.width = '100%';
+            bar.innerHTML = '100% complete';
+            alert('Finished uploading file(s)');
+        }
+    }
+
+    function onFileSelect(e) {
+        var files = e.target.files;
+        var output = [];
+        fileCount = files.length;
+        totalFileLength = 0;
+        for (var i = 0; i < fileCount; i++) {
+            var file = files[i];
+            output.push(file.name, ' (', file.size, ' bytes, ', file.lastModifiedDate.toLocaleDateString(), ')');
+            output.push('<br/>');
+            debug('add ' + file.size);
+            totalFileLength += file.size;
+        }
+        document.getElementById('selectedFiles').innerHTML = output.join('');
+        debug('totalFileLength:' + totalFileLength);
+    }
+
+     function onUploadProgress(e) {
+        if (e.lengthComputable) {
+            var percentComplete = parseInt((e.loaded + totalUploaded) * 100 / totalFileLength);
+            var bar = document.getElementById('bar');
+            bar.style.width = percentComplete + '%';
+            bar.innerHTML = percentComplete + ' % complete';
+        } else {
+            debug('unable to compute');
+        }
+    }
+
+     function onUploadFailed(e) {
+        alert("Error uploading file");
+    }
+
+    function uploadNext() {
+        var xhr = new XMLHttpRequest();
+        var fd = new FormData();
+         const file = new File(temp2, 'me-at-thevoice.mp3', {
+            type: File,
+            lastModified: Date.now()
+        });
+        fd.append("multipartFile", file);
+        xhr.upload.addEventListener("progress", onUploadProgress, false);
+        xhr.addEventListener("load", onUploadComplete, false);
+        xhr.addEventListener("error", onUploadFailed, false);
+        xhr.open("POST", "/api/investmentController/applyInvesment");
+        debug('uploading ' + file.name);
+        xhr.send(fd);
+    }
+
+    function startUpload() {
+
+        totalUploaded = filesUploaded = 0;
+        uploadNext();
+    }
+
+    window.onload = function() {
+        document.getElementById('files').addEventListener('change', onFileSelect, false);
+        document.getElementById('register').addEventListener('click', startUpload, false);
+    }
+
+
+
 </script>
 
 <!DOCTYPE html>
@@ -127,7 +273,7 @@
                         </textarea>
 
                         <input  th:field="*{issue}" type="hidden" id="issue"   />
-                        <button   name="register" onclick="verifyPassword()"   class="register"  >ثبت درخواست</button>
+                        <button   name="register" onclick="verifyPassword()"  id="register" class="register"  >ثبت درخواست</button>
                     </form>
                             </th>
                         </tr>
@@ -148,7 +294,7 @@
                                    accept="image/png, image/jpeg , .pdf , .doc , .docx ,.xls" multiple required />
                             <input type="hidden" name="typeOfPage" id="typeOfPage" th:value="uploadAdd"/>
 
-                            <button onclick="savefield()" type="submit">ثبت</button>
+                            <button onclick="savefield()"  type="submit">ثبت</button>
 
                         </form>
                     </div>
@@ -186,6 +332,22 @@
                                 </td>
                             </tr>
                             </tbody>
+
+
+                            <tbody>
+                            <tr     >
+                                <td>
+                                      <button id="btnStart">START RECORDING</button>
+                                      <button id="btnStop">STOP RECORDING</button>
+                                </td>
+                                <td>
+                                    <audio controls></audio>
+                                    <audio    name="audioPlay"  id="audioPlay" controls></audio>
+                                </td>
+
+                            </tr>
+                            </tbody>
+
                         </table>
                     </div>
                 </th>
